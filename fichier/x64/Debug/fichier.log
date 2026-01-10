@@ -1,0 +1,8 @@
+﻿  Parser.cpp
+C:\Users\Simon\source\repos\fichier\Parser.cpp(48,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Parser.cpp(80,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Parser.cpp(119,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Token.cpp
+  fichier.cpp
+  Génération de code en cours...
+  fichier.vcxproj -> C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe
