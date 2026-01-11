@@ -84,6 +84,7 @@ bool Parser::isInt(const Token* token, int* out) {
 			out = NULL;
 			return false;
 		}
+		multiple *= 10;
 	}
 	return true;
 }
@@ -147,11 +148,11 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 	}
 	else if (methode == "cercle") {
 		if (size != 3)return false;
-		if (!isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt))return false;
+		if (!(isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt)))return false;
 	}
 	else if (methode == "sin" || methode == "cos" || methode == "tan") {
 		if (size != 4)return false;
-		if (!isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt) && isInt(param3, &retour3->parametreInt))return false;
+		if (!(isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt) && isInt(param3, &retour3->parametreInt)))return false;
 		has3Param = true;
 	}
 	else if (methode == "triangle_equilateral") {
