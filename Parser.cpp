@@ -10,8 +10,15 @@ Parser::Parser(std::string expression) {
 	changeExpression(expression);
 }
 
-void Parser::changeExpression(std::string expression) {
+void Parser::clear_token() {
+	for (Token* t : *tokens) {
+		delete t;
+	}
 	tokens->clear();
+}
+
+void Parser::changeExpression(std::string expression) {
+	clear_token();
 	std::string currentExpression = "";
 
 	for (char lettre : expression) {
@@ -19,23 +26,34 @@ void Parser::changeExpression(std::string expression) {
 		if (lettre != ' ')currentExpression += lettre;
 		else {
 			if (currentExpression == "")continue;
-			ExpressionType type = getExpressionType(currentExpression);
-			tokens->push_back(new Token(currentExpression, type));
+			Methode methodeOut = INVALIDE;
+			ExpressionType type = getExpressionType(currentExpression, &methodeOut);
+			tokens->push_back(new Token(currentExpression, type, methodeOut));
 			currentExpression.clear();
 		}
 	}
-	ExpressionType type = getExpressionType(currentExpression);
-	tokens->push_back(new Token(currentExpression, type));
+	Methode methodeOut = INVALIDE;
+	ExpressionType type = getExpressionType(currentExpression, &methodeOut);
+	tokens->push_back(new Token(currentExpression, type, methodeOut));
 }
 
-ExpressionType Parser::getExpressionType(std::string expression) {
+ExpressionType Parser::getExpressionType(std::string expression, Methode *out) {
 
-	if (expression == "--help")return HELP;
-
-	for (std::string methode : methodes) {
-		if (expression == methode)return METHODE;
+	if (expression == "--help") {
+		*out = HELPER;
+		return HELP;
 	}
 
+	int cpt = 0;
+
+	for (std::string methode : methodes) {
+		if (expression == methode){
+			*out = static_cast<Methode>(cpt);
+			return METHODE;
+		}
+		cpt++;
+	}
+	*out = INVALIDE;
 	return PARAM;
 }
 
@@ -107,6 +125,7 @@ bool Parser::isBool(const Token* token, bool *out) {
 		return false;
 	}
 }
+
 #define tokensIdx(x) tokens->at(x)->expressionType
 bool Parser::Valide(std::vector<Data*> *parametre) {
 	bool beginWithMethode = tokensIdx(0) == METHODE;
@@ -116,7 +135,7 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 		return false;
 	}
 
-	std::string methode = tokens->at(0)->expression;
+	Methode methode = tokens->at(0)->nom_methode;
 	int size = tokens->size();
 
 
@@ -127,8 +146,8 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 		}
 		Data *retourHelp = new Data();
 		Data* retourMethode = new Data();
-		retourHelp->methode = "help";
-		retourMethode->methode = tokens->at(1)->expression;
+		retourHelp->methode = HELPER;
+		retourMethode->methode = tokens->at(1)->nom_methode;
 		parametre->push_back(retourHelp);
 		parametre->push_back(retourMethode);
 		return true;
@@ -142,24 +161,25 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 	Token* param3 = NULL;
 	if (tokens->size() > 3)param3 = tokens->at(3);
 
-	if (methode == "ligne" || methode == "rectangle" || methode == "carre" || methode == "triangle_rectangle") {
+	if (methode <= 2 || methode == TRIANGLE_RECTANGLE) {
 		if (size != 3)return false;
-		if(!(isPosition(param1, &retour1->position) && isPosition(param2, &retour2->position)))return false;
+		if (!(isPosition(param1, &retour1->position) && isPosition(param2, &retour2->position)))return false;
 	}
-	else if (methode == "cercle") {
+	else if (methode == CERCLE) {
 		if (size != 3)return false;
 		if (!(isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt)))return false;
 	}
-	else if (methode == "sin" || methode == "cos" || methode == "tan") {
+	else if (methode >= SINUS && methode <= TANGENTE) {
 		if (size != 4)return false;
 		if (!(isPosition(param1, &retour1->position) && isInt(param2, &retour2->parametreInt) && isInt(param3, &retour3->parametreInt)))return false;
 		has3Param = true;
 	}
-	else if (methode == "triangle_equilateral") {
+	else if (methode == TRIANGLE_EQUILATERAL) {
 		if (size != 4)return false;
 		if (!(isPosition(param1, &retour1->position) && isPosition(param2, &retour2->position)) && !isBool(param3, &retour3->parametreBool))return false;
 		has3Param = true;
 	}
+
 	Data *retourMethode = new Data();
 	retourMethode->methode = methode;
 

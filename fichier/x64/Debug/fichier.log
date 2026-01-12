@@ -1,5 +1,7 @@
 ﻿  Parser.cpp
-C:\Users\Simon\dessin_bmp\Parser.cpp(48,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Parser.cpp(80,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Parser.cpp(120,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Parser.cpp(66,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Parser.cpp(98,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Parser.cpp(139,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  fichier.cpp
+  Génération de code en cours...
   fichier.vcxproj -> C:\Users\Simon\dessin_bmp\x64\Debug\fichier.exe

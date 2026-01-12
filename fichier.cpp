@@ -14,39 +14,11 @@
 #define help_2_position(nom) std::cout<<nom << " x/y x/y\n{forme} {position(int/int)} {position(int/int)}\n"
 #define help_cercle std::cout<<"cercle x/y r\n{forme} {position(int/int) {rayon(int)}\n"
 #define help_trigo(nom) std::cout<< nom << " x/y r b\n{forme} {position(int/int)} {rayon(int)} {b(int)}\n"
-#define help_equi std::cout<<"triangle_equilateral x/y x/y true/false\n{forme} {position(int/int)} {position(int/int)} {booleen(va vers le haut(true)) sinon false\n"
-
-enum Methode {
-    LIGNE,
-    RECTANGLE,
-    CARRE,
-    CERCLE,
-    SINUS,
-    COSINUS,
-    TANGENTE,
-    TRIANGLE_RECTANGLE,
-    TRIANGLE_EQUILATERAL,
-    HELPER,
-    INVALIDE,
-};
-
-Methode get_methode(std::string methode) {
-    if (methode == "ligne")return LIGNE;
-    else if (methode == "rectangle") return RECTANGLE;
-    else if (methode == "carre") return CARRE;
-    else if (methode == "cercle") return CERCLE;
-    else if (methode == "sinus") return SINUS;
-    else if (methode == "cosinus") return COSINUS;
-    else if (methode == "tangente") return TANGENTE;
-    else if (methode == "triangle_rectangle") return TRIANGLE_RECTANGLE;
-    else if (methode == "triangle_equilateral") return TRIANGLE_EQUILATERAL;
-    else if (methode == "help")return HELPER;
-    else return INVALIDE;
-}
+#define help_equi std::cout<<"triangle_equilateral x/y x/y true/false\n{forme} {position(int/int)} {position(int/int)} {booleen(va vers le haut(true)) sinon false\nLes deux points doivent etre sur la meme ligne\n"
+#define help_triangle_rec std::cout<<"triangle_rectangle x/y x/y\n{forme} {position(int/int)} {position(int/int)}\nles deux positions sont les deux angles qui ne sont pas a 90\nl'angle a 90 degre est genere vers le bas, a moins de ne pas avoir l'espace\n"
 
 void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
-    std::string methodeString = parametre->at(0)->methode;
-    Methode methode = get_methode(methodeString);
+    Methode methode = parametre->at(0)->methode;
     bool isHelper = methode == HELPER;
     Data *param1 = parametre->at(1);
 
@@ -80,12 +52,16 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
             draw->triangle_rectangle(b, P1_position, P2_position);
             break;
         case TRIANGLE_EQUILATERAL:
+            if (P1_position->y != P2_position->y) {
+                std::cout << "les deux points doivent etre sur la meme ligne\n";
+                break;
+            }
             draw->triangle_equilateral(b, P1_position, P2_position, P_bool);
             break;
         }
     }
     else {
-        Methode helpingMethode = get_methode(param1->methode);
+        Methode helpingMethode = param1->methode;
         switch (helpingMethode) {
         case LIGNE:
             help_2_position("ligne");
@@ -109,7 +85,7 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
             help_trigo("tangente");
             break;
         case TRIANGLE_RECTANGLE:
-            help_2_position("triangle_rectangle");
+            help_triangle_rec;
             break;
         case TRIANGLE_EQUILATERAL:
             help_equi;
