@@ -1,5 +1,20 @@
-﻿  Parser.cpp
-C:\Users\Simon\source\repos\fichier\Parser.cpp(66,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\Simon\source\repos\fichier\Parser.cpp(98,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\Simon\source\repos\fichier\Parser.cpp(139,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-  fichier.vcxproj -> C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe
+﻿  Draw.cpp
+C:\Users\Simon\dessin_bmp\Draw.cpp(29,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(54,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(98,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(99,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(113,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(131,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(149,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(207,18): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(211,13): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  Parser.cpp
+C:\Users\Simon\dessin_bmp\Parser.cpp(66,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Parser.cpp(98,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Parser.cpp(139,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Position.h
+  Token.cpp
+  bmp.cpp
+  fichier.cpp
+  Génération de code en cours...
+  fichier.vcxproj -> C:\Users\Simon\dessin_bmp\x64\Debug\fichier.exe
