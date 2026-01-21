@@ -140,17 +140,22 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 
 
 	if (beginWithHelp) {
-		if (size > 2 || tokensIdx(1) != METHODE) {
-			parametre = NULL;
-			return false;
+		if (tokens->size() == 2) {
+			Data* retourHelp = new Data();
+			Data* retourMethode = new Data();
+			retourHelp->methode = HELPER;
+			retourMethode->methode = tokens->at(1)->nom_methode;
+			parametre->push_back(retourHelp);
+			parametre->push_back(retourMethode);
+			return true;
 		}
-		Data *retourHelp = new Data();
-		Data* retourMethode = new Data();
-		retourHelp->methode = HELPER;
-		retourMethode->methode = tokens->at(1)->nom_methode;
-		parametre->push_back(retourHelp);
-		parametre->push_back(retourMethode);
-		return true;
+		else if (tokens->size() == 1) {
+			Data* retourHelp = new Data();
+			retourHelp->methode = HELPER;
+			parametre->push_back(retourHelp);
+			return true;
+		}
+		else return false;
 	}
 
 	Data *retour1 = new Data(), * retour2 = new Data(), * retour3 = new Data();
