@@ -170,7 +170,7 @@ int main(){
     } while (input != "save");
     
 
-	b->saveFile();
+    system("start c:\\temp\\a.bmp");
 
 	delete b;
     delete parser;
