@@ -81,7 +81,7 @@ void Draw::rectangle(bmp* b, Position* p1, Position* p2) {
 
 void Draw::carre(bmp* b, Position* p1, Position* p2) {
     if (abs(p1->x - p2->x) != abs(p1->y - p2->y)) {
-        std::cout << "impression d'un carre impossible";
+        std::cout << "impression d'un carre impossible\n";
         return;
     }
 
@@ -89,7 +89,12 @@ void Draw::carre(bmp* b, Position* p1, Position* p2) {
 }
 
 void Draw::cercle(bmp* b, Position* centre, int rayon) {
+    if ((centre->x + rayon) >= 500 || (centre->y + rayon) >= 500 || (centre->y - rayon) < 0 || (centre->x - rayon) < 0) {
+        std::cout << "impression d'un cercle impossible\n";
+        return;
+    }
 
+    Position* precedent = new Position(centre->x , centre->y + rayon);
 
     for (int angle = 0; angle < 360; angle++) {
         int x, y;
@@ -98,7 +103,13 @@ void Draw::cercle(bmp* b, Position* centre, int rayon) {
         x = (rayon * sin(rad)) + centre->x;
         y = (rayon * cos(rad)) + centre->y;
 
+        Position* courant = new Position(x, y);
+
         b->setPixel(x, y, rouge);
+        ligne(b, precedent, courant);
+
+        delete precedent;
+        precedent = courant;
     }
 }
 
