@@ -1,5 +1,8 @@
 #include "Parser.h"
 
+#define width 500
+#define min 0
+
 Parser::Parser(){
 	tokens = new std::vector<Token*>();
 }
@@ -80,6 +83,10 @@ bool Parser::isPosition(const Token *token, Position **out) {
 			return false;
 		}
 		multiple *= 10;
+	}
+	if (x >= width || x < min || y >= width || y < min) {
+		out = NULL;
+		return false;
 	}
 	*out = new Position(x, y);
 

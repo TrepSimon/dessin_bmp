@@ -159,7 +159,7 @@ int main(){
         parametre->clear();
 
         if (!parser->Valide(parametre)) {
-            std::cout << "erreur de parsing\n";
+            std::cout << "erreur de parsing\ncommande annule";
             continue;
         }
 
