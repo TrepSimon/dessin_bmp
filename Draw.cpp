@@ -111,6 +111,7 @@ void Draw::cercle(bmp* b, Position* centre, int rayon) {
         delete precedent;
         precedent = courant;
     }
+    delete precedent;
 }
 
 void Draw::sinus(bmp* b, Position* centre, int rayon, int paramB) {
