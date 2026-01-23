@@ -14,14 +14,15 @@ class Draw{
 public:
     Draw();
     void ligne(bmp*, Position*, Position*);
-    void carre(bmp*, Position*, Position*);
-    void rectangle(bmp*, Position*, Position*);
-    void cercle(bmp*, Position*, int);
+    void carre(bmp*, Position*, Position*, bool = false);
+    void rectangle(bmp*, Position*, Position*, bool = false);
+    void cercle(bmp*, Position*, int, bool = false);
     void sinus(bmp*, Position*, int, int);
     void cosinus(bmp*, Position*, int, int);
     void tangente(bmp*, Position*, int, int);
-    void triangle_rectangle(bmp*, Position*, Position*);
-    void triangle_equilateral(bmp*, Position*, Position*, bool);
+    void triangle_rectangle(bmp*, Position*, Position*, bool = false);
+    void triangle_equilateral(bmp*, Position*, Position*, bool, bool = false);
+    void fill(bmp*, int, int);
 
 };
 

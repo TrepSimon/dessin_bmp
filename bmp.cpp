@@ -1,12 +1,14 @@
 #include "bmp.h"
 #pragma warning(disable : 4996)
 
+#define pixelVide 0
 
 bmp::bmp(int width, int height) {
 
     this->width = width;
     this->height = height;
     buffer = (unsigned char*)malloc(sizeof(char) * width * height * 3);
+    memset(buffer, 0 , width * height * 3);
 }
 
 void bmp::setPixel(int piX, int piY, unsigned char R, unsigned char G, unsigned char B)
@@ -14,9 +16,21 @@ void bmp::setPixel(int piX, int piY, unsigned char R, unsigned char G, unsigned 
     int pos;
     pos = piY * width * 3;
     pos += piX * 3;
+    
     buffer[pos + 0] = B;
     buffer[pos + 1] = G;
     buffer[pos + 2] = R;
+}
+
+bool bmp::pixelEstVide(int piX, int piY) {
+    int pos;
+    pos = piY * width * 3;
+    pos += piX * 3;
+    unsigned char blue = buffer[pos + 0];
+    unsigned char green = buffer[pos + 1];
+    unsigned char red = buffer[pos + 2];
+
+    return blue == pixelVide && green == pixelVide && red == pixelVide;
 }
 
 void bmp::saveFile()

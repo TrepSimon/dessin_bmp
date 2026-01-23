@@ -29,7 +29,7 @@ public:
     void fichier();
     void setPixel(int, int, unsigned char, unsigned char, unsigned char);
     void saveFile();
-
+    bool pixelEstVide(int, int);
 
     
 

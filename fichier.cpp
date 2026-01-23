@@ -141,6 +141,9 @@ int main(){
     Draw* draw = new Draw();
     auto *parametre = new std::vector<Data*>();
 
+    draw->rectangle(b, new Position(1, 10), new Position(100, 100), true);
+    b->saveFile();
+
     std::string input = "";
     
     std::cout << "--help {methode}" << std::endl;
