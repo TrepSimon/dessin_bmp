@@ -1,4 +1,5 @@
 #include "Draw.h"
+#include <queue>
 #define rouge 255,0,0
 #define bleu 0,0,255
 #define vert 0,255,0
@@ -14,6 +15,28 @@ void Draw::swap_position(Position*& p2, Position*& p1) {
 
     temp = new Position(1, 2);
     delete temp;
+}
+
+void Draw::fill(bmp* b, int x, int y) {
+    std::queue<Position*> liste;
+    liste.push(new Position(x, y));
+
+    while (!liste.empty()) {
+        Position* courant = liste.front();
+        int cx = courant->x, cy = courant->y;
+        liste.pop();
+        if (b->pixelEstVide(cx, cy)) {
+            b->setPixel(cx, cy, rouge);
+
+            liste.push(new Position(cx, cy + 1));
+            liste.push(new Position(cx, cy - 1));
+            liste.push(new Position(cx + 1, cy));
+            liste.push(new Position(cx - 1, cy));
+        }
+
+        delete courant;
+    }
+    return;
 }
 
 #define ratio(ligne) ((float)(ligne - p1->y)) / delta_y
@@ -65,7 +88,7 @@ void Draw::ligne(bmp* b, Position* p1, Position* p2) {
     ligne_vertical(b, p1, p2);
 }
 
-void Draw::rectangle(bmp* b, Position* p1, Position* p2) {
+void Draw::rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
     if (p1->x > p2->x)swap_position(p2, p1);
 
     Position* coin_droit = new Position(p2->x, p1->y);
@@ -76,19 +99,23 @@ void Draw::rectangle(bmp* b, Position* p1, Position* p2) {
     ligne(b, p2, coin_gauche);
     ligne(b, coin_gauche, p1);
 
-
+    if (toFill) {
+        int x = (p2->x + p1->x) / 2;
+        int y = (p2->y + p1->y) / 2;
+        fill(b, x, y);
+    }
 }
 
-void Draw::carre(bmp* b, Position* p1, Position* p2) {
+void Draw::carre(bmp* b, Position* p1, Position* p2, bool toFill) {
     if (abs(p1->x - p2->x) != abs(p1->y - p2->y)) {
         std::cout << "impression d'un carre impossible\n";
         return;
     }
 
-    rectangle(b, p1, p2);
+    rectangle(b, p1, p2, toFill);
 }
 
-void Draw::cercle(bmp* b, Position* centre, int rayon) {
+void Draw::cercle(bmp* b, Position* centre, int rayon, bool toFill) {
     if ((centre->x + rayon) >= 500 || (centre->y + rayon) >= 500 || (centre->y - rayon) < 0 || (centre->x - rayon) < 0) {
         std::cout << "impression d'un cercle impossible\n";
         return;
@@ -184,7 +211,7 @@ void Draw::tangente(bmp* b, Position* centre, int rayon, int paramB) {
 
 }
 
-void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2) {
+void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
     if (p1->y == p2->y)std::cout << "ne doit pas etre sur la meme ligne";
 
     if (p1->x > p2->x)swap_position(p2, p1);
@@ -207,7 +234,7 @@ void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2) {
 
 }
 
-void Draw::triangle_equilateral(bmp* b, Position* p1, Position* p2, bool vers_haut) {
+void Draw::triangle_equilateral(bmp* b, Position* p1, Position* p2, bool vers_haut, bool toFill) {
     if (p1->x > p2->x)swap_position(p2, p1);
 
     int delta_x = (p1->x - p2->x);

@@ -1,11 +1,13 @@
 ﻿  Draw.cpp
-C:\Users\Simon\dessin_bmp\Draw.cpp(29,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(54,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(103,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(104,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(125,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(143,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(161,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(219,18): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Simon\dessin_bmp\Draw.cpp(223,13): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(52,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(77,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(130,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(131,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(152,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(170,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(188,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(246,18): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\dessin_bmp\Draw.cpp(250,13): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  bmp.cpp
+  Génération de code en cours...
   fichier.vcxproj -> C:\Users\Simon\dessin_bmp\x64\Debug\fichier.exe
