@@ -104,6 +104,7 @@ void Draw::rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
         int y = (p2->y + p1->y) / 2;
         fill(b, x, y);
     }
+    delete coin_droit, coin_gauche;
 }
 
 void Draw::carre(bmp* b, Position* p1, Position* p2, bool toFill) {
@@ -139,6 +140,8 @@ void Draw::cercle(bmp* b, Position* centre, int rayon, bool toFill) {
         precedent = courant;
     }
     delete precedent;
+
+    if (toFill)fill(b, centre->x, centre->y);
 }
 
 void Draw::sinus(bmp* b, Position* centre, int rayon, int paramB) {
@@ -156,7 +159,7 @@ void Draw::sinus(bmp* b, Position* centre, int rayon, int paramB) {
         avant = new Position(x, y);
         x++;
     }
-
+    delete avant;
 }
 
 void Draw::cosinus(bmp* b, Position* centre, int rayon, int paramB) {
@@ -174,7 +177,7 @@ void Draw::cosinus(bmp* b, Position* centre, int rayon, int paramB) {
         avant = new Position(x, y);
         x++;
     }
-
+    delete avant;
 }
 
 void Draw::tangente(bmp* b, Position* centre, int rayon, int paramB) {
@@ -208,7 +211,7 @@ void Draw::tangente(bmp* b, Position* centre, int rayon, int paramB) {
         x++;
         b->saveFile();
     }
-
+    delete avant;
 }
 
 void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
@@ -231,7 +234,13 @@ void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
     b->setPixel(p2->x, p2->y, rouge);
     b->setPixel(angle_droit->x, angle_droit->y, rouge);
 
+    if (toFill) {
+        int x = (p1->x + angle_droit->x) / 2;
+        int y = (p1->y + p2->y) / 2;
+        fill(b, x, y);
+    }
 
+    delete angle_droit;
 }
 
 void Draw::triangle_equilateral(bmp* b, Position* p1, Position* p2, bool vers_haut, bool toFill) {
@@ -263,4 +272,11 @@ void Draw::triangle_equilateral(bmp* b, Position* p1, Position* p2, bool vers_ha
     ligne(b, p2, p3);
 
     b->setPixel(p3->x, p3->y, rouge);
+
+    if (toFill) {
+        int x = (p1->x + p2->x) / 2;
+        int y = (p1->y + p3->y) / 2;
+        fill(b, x, y);
+    }
+    delete p3;
 }

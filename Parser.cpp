@@ -46,6 +46,10 @@ ExpressionType Parser::getExpressionType(std::string expression, Methode *out) {
 		*out = HELPER;
 		return HELP;
 	}
+	else if (expression.at(0) == '-') {
+		*out = INVALIDE;
+		return OPTION;
+	}
 
 	int cpt = 0;
 
@@ -134,6 +138,7 @@ bool Parser::isBool(const Token* token, bool *out) {
 }
 
 #define tokensIdx(x) tokens->at(x)->expressionType
+#define nbParam(x) x
 bool Parser::Valide(std::vector<Data*> *parametre) {
 	bool beginWithMethode = tokensIdx(0) == METHODE;
 	bool beginWithHelp = tokensIdx(0) == HELP;
@@ -147,7 +152,7 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 
 
 	if (beginWithHelp) {
-		if (tokens->size() == 2) {
+		if (tokens->size() == nbParam(2)) {
 			Data* retourHelp = new Data();
 			Data* retourMethode = new Data();
 			retourHelp->methode = HELPER;
@@ -156,7 +161,7 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 			parametre->push_back(retourMethode);
 			return true;
 		}
-		else if (tokens->size() == 1) {
+		else if (tokens->size() == nbParam(1)) {
 			Data* retourHelp = new Data();
 			retourHelp->methode = HELPER;
 			parametre->push_back(retourHelp);
@@ -171,7 +176,7 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 	Token* param1 = tokens->at(1);
 	Token* param2 = tokens->at(2);
 	Token* param3 = NULL;
-	if (tokens->size() > 3)param3 = tokens->at(3);
+	if (tokens->size() > nbParam(3))param3 = tokens->at(3);
 
 	if (methode <= 2 || methode == TRIANGLE_RECTANGLE) {
 		if (size != 3)return false;
