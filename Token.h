@@ -5,6 +5,7 @@ enum ExpressionType {
 	METHODE,
 	PARAM,
 	HELP,
+	OPTION,
 };
 enum Methode {
 	LIGNE,
@@ -18,8 +19,10 @@ enum Methode {
 	TRIANGLE_EQUILATERAL,
 	HELPER,
 	INVALIDE,
+};
 
-
+enum Option {
+	FILL,
 };
 
 
