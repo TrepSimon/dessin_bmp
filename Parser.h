@@ -9,7 +9,7 @@ struct Data {
 	int parametreInt;
 	bool parametreBool;
 	Methode methode;
-	Option option;
+	std::vector<Option> *option;
 };
 
 
