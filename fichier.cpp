@@ -47,14 +47,29 @@ void dessiner_tout_help() {
     new_line;
 
 }
-
+#define paramLast parametre->at(parametre->size() - 1)
 void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
     Methode methode = parametre->at(0)->methode;
     bool isHelper = methode == HELPER;
+    bool hasOption = paramLast->option != NULL;
+    bool toFill = false;
 
     if (isHelper && parametre->size() == 1) {
         dessiner_tout_help();
         return;
+    }
+
+    if (hasOption) {
+        std::vector<Option>* options = paramLast->option;
+
+        for (Option option : *options) {
+            switch (option)
+            {
+            case FILL:
+                toFill = true;
+                break;
+            }
+        }
     }
 
     Data *param1 = parametre->at(1);
@@ -68,13 +83,13 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
             draw->ligne(b, P1_position, P2_position);
             break;
         case RECTANGLE:
-            draw->rectangle(b, P1_position, P2_position);
+            draw->rectangle(b, P1_position, P2_position, toFill);
             break;
         case CARRE:
-            draw->carre(b, P1_position, P2_position);
+            draw->carre(b, P1_position, P2_position, toFill);
             break;
         case CERCLE:
-            draw->cercle(b, P1_position, P2_int);
+            draw->cercle(b, P1_position, P2_int, toFill);
             break;
         case SINUS:
             draw->sinus(b, P1_position, P2_int, parametre->at(3)->parametreInt);
@@ -86,14 +101,14 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
             draw->tangente(b, P1_position, P2_int, parametre->at(3)->parametreInt);
             break;
         case TRIANGLE_RECTANGLE:
-            draw->triangle_rectangle(b, P1_position, P2_position);
+            draw->triangle_rectangle(b, P1_position, P2_position, toFill);
             break;
         case TRIANGLE_EQUILATERAL:
             if (P1_position->y != P2_position->y) {
                 std::cout << "les deux points doivent etre sur la meme ligne\n";
                 break;
             }
-            draw->triangle_equilateral(b, P1_position, P2_position, P_bool);
+            draw->triangle_equilateral(b, P1_position, P2_position, P_bool, toFill);
             break;
         }
     }
@@ -157,6 +172,7 @@ int main(){
         parser->changeExpression(input);
 
         for (auto data : *parametre) {
+            if(data->option != NULL)delete data->option;
             delete data;
         }
         parametre->clear();

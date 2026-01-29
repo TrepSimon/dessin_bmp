@@ -137,14 +137,38 @@ bool Parser::isBool(const Token* token, bool *out) {
 	}
 }
 
+std::vector<Option>* getOptions(Token* param) {
+	auto* retour = new std::vector<Option>();
+
+	for (char lettre : param->expression) {
+		if (lettre == '-')continue;
+		switch (lettre) {
+		case('f'):
+			retour->push_back(FILL);
+			break;
+		}
+	}
+	return retour;
+}
+
 #define tokensIdx(x) tokens->at(x)->expressionType
 #define nbParam(x) x
 bool Parser::Valide(std::vector<Data*> *parametre) {
 	bool beginWithMethode = tokensIdx(0) == METHODE;
 	bool beginWithHelp = tokensIdx(0) == HELP;
+	bool hasOption = tokens->size() > 1 ? tokensIdx(1) == OPTION : false;
+	Data* dataOption = NULL;
 	if (!beginWithMethode && !beginWithHelp) {
 		parametre = NULL;
 		return false;
+	}
+
+	if (hasOption) {
+		Token *option = tokens->at(1);
+		tokens->erase(tokens->begin() + 1);
+		dataOption = new Data();
+		dataOption->option = getOptions(option);
+		delete option;
 	}
 
 	Methode methode = tokens->at(0)->nom_methode;
@@ -205,6 +229,8 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 	parametre->push_back(retour2);
 	if (has3Param)parametre->push_back(retour3);
 	else delete retour3;
+
+	parametre->push_back(dataOption);
 
 	return true;
 }
