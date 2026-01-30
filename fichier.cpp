@@ -154,10 +154,7 @@ int main(){
 	bmp* b = new bmp(w, h);
     Parser* parser = new Parser();
     Draw* draw = new Draw();
-    auto *parametre = new std::vector<Data*>();
-
-    draw->rectangle(b, new Position(1, 10), new Position(100, 100), true);
-    b->saveFile();
+    auto *parametre = new std::vector<Data*>();;
 
     std::string input = "";
     

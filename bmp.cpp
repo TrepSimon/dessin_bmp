@@ -2,12 +2,13 @@
 #pragma warning(disable : 4996)
 
 #define pixelVide 0
-
+#define bufferSize(x, y) x * y * 3 
 bmp::bmp(int width, int height) {
 
     this->width = width;
     this->height = height;
-    buffer = (unsigned char*)malloc(sizeof(char) * width * height * 3);
+    taille = sizeof(char) * width * height * 3;
+    buffer = (unsigned char*)malloc(taille);
     memset(buffer, 0 , width * height * 3);
 }
 
@@ -16,6 +17,8 @@ void bmp::setPixel(int piX, int piY, unsigned char R, unsigned char G, unsigned 
     int pos;
     pos = piY * width * 3;
     pos += piX * 3;
+
+    if (pos >= taille || pos < 0)return;
     
     buffer[pos + 0] = B;
     buffer[pos + 1] = G;
@@ -26,6 +29,9 @@ bool bmp::pixelEstVide(int piX, int piY) {
     int pos;
     pos = piY * width * 3;
     pos += piX * 3;
+
+    if (pos >= taille || pos < 0)return false;
+
     unsigned char blue = buffer[pos + 0];
     unsigned char green = buffer[pos + 1];
     unsigned char red = buffer[pos + 2];

@@ -35,9 +35,11 @@ void Parser::changeExpression(std::string expression) {
 			currentExpression.clear();
 		}
 	}
-	Methode methodeOut = INVALIDE;
-	ExpressionType type = getExpressionType(currentExpression, &methodeOut);
-	tokens->push_back(new Token(currentExpression, type, methodeOut));
+	if(currentExpression != ""){
+		Methode methodeOut = INVALIDE;
+		ExpressionType type = getExpressionType(currentExpression, &methodeOut);
+		tokens->push_back(new Token(currentExpression, type, methodeOut));
+	}
 }
 
 ExpressionType Parser::getExpressionType(std::string expression, Methode *out) {
@@ -230,7 +232,7 @@ bool Parser::Valide(std::vector<Data*> *parametre) {
 	if (has3Param)parametre->push_back(retour3);
 	else delete retour3;
 
-	parametre->push_back(dataOption);
+	if(dataOption != NULL) parametre->push_back(dataOption) ;
 
 	return true;
 }
