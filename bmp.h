@@ -23,7 +23,7 @@ public:
     bmpFileHeader file_header;
     bmpInfoHeader info_header;
     unsigned char* buffer;
-    int width, height;
+    int width, height, taille;
 
     bmp(int, int);
     void fichier();
