@@ -5,6 +5,7 @@
 #include "Parser.h"
 #include "Draw.h"
 #include <string>
+#include "Fenetre.h"
 
 #define P1_position param1->position
 #define P2_position param2->position
@@ -154,7 +155,10 @@ int main(){
 	bmp* b = new bmp(w, h);
     Parser* parser = new Parser();
     Draw* draw = new Draw();
-    auto *parametre = new std::vector<Data*>();;
+    auto *parametre = new std::vector<Data*>();
+    Fenetre *window = new Fenetre();
+
+    window->create_window(300, 300, "titre");
 
     std::string input = "";
     

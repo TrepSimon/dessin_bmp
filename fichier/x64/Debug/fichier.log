@@ -1,2 +1,21 @@
-﻿  fichier.cpp
-  fichier.vcxproj -> C:\Users\Simon\dessin_bmp\x64\Debug\fichier.exe
+﻿  bmp.cpp
+  Draw.cpp
+C:\Users\Simon\source\repos\fichier\Draw.cpp(52,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(77,18): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(131,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(132,32): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(155,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(173,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(191,41): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(255,18): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Draw.cpp(259,13): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  fichier.cpp
+  Parser.cpp
+C:\Users\Simon\source\repos\fichier\Parser.cpp(75,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Parser.cpp(111,15): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\Simon\source\repos\fichier\Parser.cpp(177,11): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Position.h
+  Token.cpp
+  Fenetre.cpp
+  Génération de code en cours...
+  fichier.vcxproj -> C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe
