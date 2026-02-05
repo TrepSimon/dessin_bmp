@@ -7,14 +7,6 @@
       "RelativeMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|solutionrelative:fichier.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|solutionrelative:Fenetre.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|solutionrelative:Fenetre.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|C:\\Users\\Simon\\source\\repos\\fichier\\Draw.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{01C66F3A-9B82-40F7-BB43-30288704D83D}|fichier.vcxproj|solutionrelative:Draw.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -64,7 +56,7 @@
               "RelativeDocumentMoniker": "fichier.cpp",
               "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp",
               "RelativeToolTip": "fichier.cpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAAAIMAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAKUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T17:09:34.558Z",
               "IsPinned": true,
@@ -72,33 +64,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Fenetre.cpp",
-              "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.cpp",
-              "RelativeDocumentMoniker": "Fenetre.cpp",
-              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.cpp",
-              "RelativeToolTip": "Fenetre.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-02-04T20:28:53.154Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Fenetre.h",
-              "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.h",
-              "RelativeDocumentMoniker": "Fenetre.h",
-              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\Fenetre.h",
-              "RelativeToolTip": "Fenetre.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-02-04T20:25:44.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Draw.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Draw.cpp",
               "RelativeDocumentMoniker": "Draw.cpp",
@@ -110,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Draw.h",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Draw.h",
               "RelativeDocumentMoniker": "Draw.h",
@@ -118,12 +84,11 @@
               "RelativeToolTip": "Draw.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-25T18:20:21.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-25T18:20:21.506Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Parser.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Parser.cpp",
               "RelativeDocumentMoniker": "Parser.cpp",
@@ -135,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Parser.h",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Parser.h",
               "RelativeDocumentMoniker": "Parser.h",
@@ -147,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "Token.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Token.cpp",
               "RelativeDocumentMoniker": "Token.cpp",
@@ -159,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "Token.h",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\Token.h",
               "RelativeDocumentMoniker": "Token.h",
@@ -171,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "bmp.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\bmp.cpp",
               "RelativeDocumentMoniker": "bmp.cpp",
@@ -183,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "bmp.h",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\bmp.h",
               "RelativeDocumentMoniker": "bmp.h",

@@ -19,6 +19,8 @@
 #define help_triangle_rec std::cout<<"triangle_rectangle x/y x/y\n{forme} {position(int/int)} {position(int/int)}\nles deux positions sont les deux angles qui ne sont pas a 90\nl'angle a 90 degre est genere vers le bas, a moins de ne pas avoir l'espace\n"
 #define new_line std::cout<<"\n\n"
 
+using namespace app;
+
 void dessiner_tout_help() {
     help_2_position("ligne");
     new_line;
@@ -156,9 +158,13 @@ int main(){
     Parser* parser = new Parser();
     Draw* draw = new Draw();
     auto *parametre = new std::vector<Data*>();
-    Fenetre *window = new Fenetre();
+    Fenetre* window = new Fenetre();
 
-    window->create_window(300, 300, "titre");
+    *window->getRunning() = window->create_window(200, 200, "fkf");
+
+    while (*window->getRunning()) {
+        window->update_window();
+    }
 
     std::string input = "";
     
