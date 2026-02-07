@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 1dc1644ea3021cf5718f289d32b6c830a6fc7153
 # Prerequisites
 *.d
 
@@ -14,6 +10,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Linker files
 *.ilk
