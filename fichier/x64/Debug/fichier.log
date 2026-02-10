@@ -1,2 +1,2 @@
 ﻿  fichier.cpp
-  fichier.vcxproj -> C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe
+C:\Users\Simon\source\repos\fichier\fichier.cpp(1,1): error C1041: impossible d'ouvrir la base de données du programme 'C:\Users\Simon\source\repos\fichier\fichier\x64\Debug\vc143.idb' ; si plusieurs CL.EXE écrivent dans le même fichier .PDB, utilisez /FS.

@@ -1,0 +1,4 @@
+﻿  fichier.cpp
+C:\Users\Simon\source\repos\fichier\fichier.cpp(155,42): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+FenetreLibrary.lib(Fenetre.obj) : error LNK2001: symbole externe non résolu "private: static void (__cdecl* app::Fenetre::drawMethode)(struct HDC__ *)" (?drawMethode@Fenetre@app@@0P6AXPEAUHDC__@@@ZEA)
+C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe : fatal error LNK1120: 1 externes non résolus

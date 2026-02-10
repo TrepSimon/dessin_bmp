@@ -149,6 +149,12 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
     }
 }
 
+void drawMethode(HDC hdc) {
+    TCHAR message[] = _T("message");
+
+    TextOut(hdc, 100, 5, message, _tcslen(message));
+}
+
 
 int main(){
     int w, h;
@@ -159,6 +165,8 @@ int main(){
     Draw* draw = new Draw();
     auto *parametre = new std::vector<Data*>();
     Fenetre* window = new Fenetre();
+
+    window->addFunction(drawMethode);
 
     *window->getRunning() = window->create_window(200, 200, "fkf");
 
