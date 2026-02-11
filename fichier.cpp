@@ -149,10 +149,14 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
     }
 }
 
-void drawMethode(HDC hdc) {
-    TCHAR message[] = _T("message");
+static void paintMethode(HDC hdc) {
+    /*TCHAR message[] = _T("message");
 
-    TextOut(hdc, 100, 5, message, _tcslen(message));
+    TextOut(hdc, 100, 5, message, _tcslen(message));*/
+}
+
+static HWND createMethode(HWND parent) {
+    return CreateWindowEx(0, L"EDIT", L"input: ", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, 10, 10, 200, 25, parent, (HMENU)1, NULL, NULL);
 }
 
 
@@ -166,9 +170,9 @@ int main(){
     auto *parametre = new std::vector<Data*>();
     Fenetre* window = new Fenetre();
 
-    window->addFunction(drawMethode);
-
-    *window->getRunning() = window->create_window(200, 200, "fkf");
+    window->addPaintFunction(paintMethode);
+    window->addCreateFunction(createMethode);
+    *window->getRunning() = window->create_window(1000, 500, "fkf");
 
     while (*window->getRunning()) {
         window->update_window();

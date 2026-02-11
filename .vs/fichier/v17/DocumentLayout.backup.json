@@ -54,9 +54,9 @@
               "Title": "fichier.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp",
               "RelativeDocumentMoniker": "fichier.cpp",
-              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp*",
-              "RelativeToolTip": "fichier.cpp*",
-              "ViewState": "AgIAAJEAAAAAAAAAAAASwKYAAAAkAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp",
+              "RelativeToolTip": "fichier.cpp",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAAAKkAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T17:09:34.558Z",
               "IsPinned": true,
@@ -72,8 +72,7 @@
               "RelativeToolTip": "Draw.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-25T18:27:35.012Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-25T18:27:35.012Z"
             },
             {
               "$type": "Document",
