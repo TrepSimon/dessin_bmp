@@ -156,7 +156,9 @@ static void paintMethode(HDC hdc) {
 }
 
 static HWND createMethode(HWND parent) {
-    return CreateWindowEx(0, L"EDIT", L"input: ", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, 10, 10, 200, 25, parent, (HMENU)1, NULL, NULL);
+    auto editWindow = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, 10, 10, 200, 300, parent, (HMENU)1, NULL, NULL);
+    auto bitMap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE, 10, 10, 200, 200, parent, NULL, NULL, NULL);
+    return editWindow;
 }
 
 
