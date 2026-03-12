@@ -155,9 +155,19 @@ static void paintMethode(HDC hdc) {
     TextOut(hdc, 100, 5, message, _tcslen(message));*/
 }
 
-static HWND createMethode(HWND parent) {
-    auto editWindow = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, 10, 10, 200, 300, parent, (HMENU)1, NULL, NULL);
+static HWND createMethode(HWND parent, int bitmapWidth) {
+    int padding = 20;
+    HBITMAP hMap = (HBITMAP)::LoadImage(
+        NULL,
+        L"C:\\temp\\a.bmp",
+        IMAGE_BITMAP,
+        0, 0,
+        LR_LOADFROMFILE | LR_CREATEDIBSECTION
+    );
+    auto editWindow = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, bitmapWidth + padding, 10, 200, 300, parent, (HMENU)1, NULL, NULL);
     auto bitMap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE, 10, 10, 200, 200, parent, NULL, NULL, NULL);
+
+    ::SendMessageW(bitMap, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hMap);
     return editWindow;
 }
 
@@ -172,9 +182,13 @@ int main(){
     auto *parametre = new std::vector<Data*>();
     Fenetre* window = new Fenetre();
 
+    b->saveFile();
+
+    window->bitmapWidth = &w;
+
     window->addPaintFunction(paintMethode);
     window->addCreateFunction(createMethode);
-    *window->getRunning() = window->create_window(1000, 500, "fkf");
+    *window->getRunning() = window->create_window(1000, 2000, "fkf");
 
     while (*window->getRunning()) {
         window->update_window();

@@ -54,9 +54,9 @@
               "Title": "fichier.cpp",
               "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp",
               "RelativeDocumentMoniker": "fichier.cpp",
-              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp*",
-              "RelativeToolTip": "fichier.cpp*",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAAAJwAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Simon\\source\\repos\\fichier\\fichier.cpp",
+              "RelativeToolTip": "fichier.cpp",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAAALcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T17:09:34.558Z",
               "IsPinned": true,
@@ -144,8 +144,7 @@
               "RelativeToolTip": "bmp.cpp",
               "ViewState": "AgIAACQAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-24T19:01:09.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-24T19:01:09.153Z"
             },
             {
               "$type": "Document",
@@ -157,8 +156,7 @@
               "RelativeToolTip": "bmp.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-24T18:58:38.413Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-24T18:58:38.413Z"
             }
           ]
         }
