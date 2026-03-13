@@ -7,6 +7,7 @@
 #include <string>
 #include "Fenetre.h"
 
+
 #define P1_position param1->position
 #define P2_position param2->position
 #define P_bool parametre->at(3)->parametreBool
@@ -20,6 +21,8 @@
 #define new_line std::cout<<"\n\n"
 
 using namespace app;
+
+HWND edit, bitmap;
 
 void dessiner_tout_help() {
     help_2_position("ligne");
@@ -164,11 +167,24 @@ static HWND createMethode(HWND parent, int bitmapWidth) {
         0, 0,
         LR_LOADFROMFILE | LR_CREATEDIBSECTION
     );
-    auto editWindow = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, bitmapWidth + padding, 10, 200, 300, parent, (HMENU)1, NULL, NULL);
-    auto bitMap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE, 10, 10, 200, 200, parent, NULL, NULL, NULL);
 
-    ::SendMessageW(bitMap, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hMap);
-    return editWindow;
+    edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, bitmapWidth + padding, 10, 500, 300, parent, (HMENU)1, NULL, NULL);
+
+    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE, 0, 10, 500, 300, parent, NULL, NULL, NULL);
+
+
+
+    ::SendMessageW(bitmap, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hMap);
+    return edit;
+}
+
+static void onResize(HWND parent, int width, int height) {
+    int maxWidth = width / 2;
+
+    int editWidowX = maxWidth;
+
+    SetWindowPos(bitmap, NULL, 0, 10, maxWidth, height, SWP_NOMOVE | SWP_NOZORDER);
+    SetWindowPos(edit, NULL, editWidowX, 10, maxWidth, height, SWP_NOMOVE | SWP_NOZORDER);
 }
 
 
@@ -188,7 +204,8 @@ int main(){
 
     window->addPaintFunction(paintMethode);
     window->addCreateFunction(createMethode);
-    *window->getRunning() = window->create_window(1000, 2000, "fkf");
+    window->addResizeMethod(onResize);
+    *window->getRunning() = window->create_window(1000, 500, "fkf");
 
     while (*window->getRunning()) {
         window->update_window();
