@@ -7,7 +7,7 @@
 #include <string>
 #include "Fenetre.h"
 
-
+#define paddingY 10
 #define P1_position param1->position
 #define P2_position param2->position
 #define P_bool parametre->at(3)->parametreBool
@@ -23,6 +23,8 @@
 using namespace app;
 
 HWND edit, bitmap;
+HBITMAP hMap;
+int w, h;
 
 void dessiner_tout_help() {
     help_2_position("ligne");
@@ -152,15 +154,24 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
     }
 }
 
-static void paintMethode(HDC hdc) {
-    /*TCHAR message[] = _T("message");
+static void paintMethode(HDC fhdc) {
+    PAINTSTRUCT ps;
+    HDC hdc = BeginPaint(bitmap, &ps);
 
-    TextOut(hdc, 100, 5, message, _tcslen(message));*/
+    HDC hdcCopy = CreateCompatibleDC(hdc);
+
+    SelectObject(hdcCopy, hMap);
+
+    StretchBlt(hdc, 0, 0, w, h, hdcCopy, 0, 0, w, h, SRCCOPY);
+
+    EndPaint(bitmap, &ps);
+    DeleteDC(hdc);
+    DeleteDC(hdcCopy);
 }
 
 static HWND createMethode(HWND parent, int bitmapWidth) {
     int padding = 20;
-    HBITMAP hMap = (HBITMAP)::LoadImage(
+    hMap = (HBITMAP)::LoadImage(
         NULL,
         L"C:\\temp\\a.bmp",
         IMAGE_BITMAP,
@@ -170,26 +181,24 @@ static HWND createMethode(HWND parent, int bitmapWidth) {
 
     edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, bitmapWidth + padding, 10, 500, 300, parent, (HMENU)1, NULL, NULL);
 
-    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE, 0, 10, 500, 300, parent, NULL, NULL, NULL);
+    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, 10, 500, 300, parent, NULL, NULL, NULL);
 
-
-
-    ::SendMessageW(bitmap, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hMap);
     return edit;
 }
 
 static void onResize(HWND parent, int width, int height) {
     int maxWidth = width / 2;
+    int currentWidthBmp = (maxWidth > w) ? w : maxWidth;
+    int currentHeightBmp = height <= h ? height : h;
 
-    int editWidowX = maxWidth;
+    int editWidowX = currentWidthBmp;
 
-    SetWindowPos(bitmap, NULL, 0, 10, maxWidth, height, SWP_NOMOVE | SWP_NOZORDER);
-    SetWindowPos(edit, NULL, editWidowX, 10, maxWidth, height, SWP_NOMOVE | SWP_NOZORDER);
+    SetWindowPos(bitmap, NULL, 0, paddingY, currentWidthBmp, currentHeightBmp - paddingY * 2, SWP_NOMOVE | SWP_NOZORDER);
+    SetWindowPos(edit, NULL, editWidowX, paddingY, width - currentWidthBmp - paddingY, height - paddingY * 2,  SWP_NOZORDER);
 }
 
 
 int main(){
-    int w, h;
     w = 500;
     h = 500;
 	bmp* b = new bmp(w, h);

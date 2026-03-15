@@ -4,7 +4,8 @@
 #define bleu 0,0,255
 #define vert 0,255,0
 
-Draw::Draw(){}
+Draw::Draw(){
+}
 
 void Draw::swap_position(Position*& p2, Position*& p1) {
     Position* temp;
@@ -13,8 +14,7 @@ void Draw::swap_position(Position*& p2, Position*& p1) {
     p1 = p2;
     p2 = temp;
 
-    temp = new Position(1, 2);
-    delete temp;
+    temp = NULL;
 }
 
 void Draw::fill(bmp* b, int x, int y) {
@@ -145,7 +145,7 @@ void Draw::cercle(bmp* b, Position* centre, int rayon, bool toFill) {
 }
 
 void Draw::sinus(bmp* b, Position* centre, int rayon, int paramB) {
-    Position* avant = new Position(0, centre->y);
+    Position avant = Position(0, centre->y);
 
     int x = 0;
     for (int angle = 0; angle < b->width; angle++) {
@@ -154,16 +154,17 @@ void Draw::sinus(bmp* b, Position* centre, int rayon, int paramB) {
 
         y = (rayon * sin(rad * paramB)) + centre->y;
 
-        ligne(b, avant, new Position(x, y));
-        delete avant;
-        avant = new Position(x, y);
+        Position current = Position(x, y);
+
+        ligne(b, &avant, &current);
+
+        avant = current;
         x++;
     }
-    delete avant;
 }
 
 void Draw::cosinus(bmp* b, Position* centre, int rayon, int paramB) {
-    Position* avant = new Position(0, centre->y + rayon);
+    Position avant = Position(0, centre->y + rayon);
 
     int x = 0;
     for (int angle = 0; angle < b->width; angle++) {
@@ -172,16 +173,17 @@ void Draw::cosinus(bmp* b, Position* centre, int rayon, int paramB) {
 
         y = (rayon * cos(rad * paramB)) + centre->y;
 
-        ligne(b, avant, new Position(x, y));
-        delete avant;
-        avant = new Position(x, y);
+        Position current = Position(x, y);
+
+        ligne(b, &avant, &current);
+
+        avant = current;
         x++;
     }
-    delete avant;
 }
 
 void Draw::tangente(bmp* b, Position* centre, int rayon, int paramB) {
-    Position* avant = new Position(0, centre->y);
+    Position avant = Position(0, centre->y);
 
     int x = 0;
     for (int angle = 0; angle < b->width; angle++) {
@@ -197,21 +199,20 @@ void Draw::tangente(bmp* b, Position* centre, int rayon, int paramB) {
             y = 0;
         }
 
-        if ((avant->y == 0 && y == 0) || (avant->y > 0 && y == 0)) {
-            delete avant;
-            avant = new Position(x, y);
+        if ((avant.y == 0 && y == 0) || (avant.y > 0 && y == 0)) {
+            avant = Position(x, y);
             x++;
             continue;
         }
 
-        ligne(b, avant, new Position(x, y));
+        Position current = Position(x, y);
 
-        delete avant;
-        avant = new Position(x, y);
+        ligne(b, &avant, &current);
+
+        avant = current;
         x++;
         b->saveFile();
     }
-    delete avant;
 }
 
 void Draw::triangle_rectangle(bmp* b, Position* p1, Position* p2, bool toFill) {
@@ -279,4 +280,50 @@ void Draw::triangle_equilateral(bmp* b, Position* p1, Position* p2, bool vers_ha
         fill(b, x, y);
     }
     delete p3;
+}
+
+void Draw::distortedSinus(bmp* b, DistortionType type,int amplitude, int frequency,int agressivity) {
+    int centreY = b->height / 2;
+
+    Position avant = Position(0, centreY);
+    int x = 0;
+    for (int angle = 0; angle < b->width; angle++) {
+        int y;
+        double rad = angle * M_PI / 180;
+
+        y = (amplitude * sin(rad * frequency)) + centreY;
+    
+        switch(type){
+        case SOFT: {
+            y = tanh(y);
+            break;
+        }
+        case HARD: {
+            int cutOffPositive = centreY + amplitude - agressivity;
+            int cutOffNegative = centreY - amplitude + agressivity;
+
+            if (y > cutOffPositive) y = cutOffPositive;
+            else if (y < cutOffNegative) y = cutOffNegative;
+            break;
+        }
+        case WAVE_SHAPING: {
+            y = y / (1 + fabs(y));
+            break;
+        }
+        case OVERDRIVE: {
+            if (y > centreY) y = 1 - exp(-y);
+            else y = -1 + exp(y);
+        }
+        }
+
+        
+        
+
+        Position current = Position(x, y);
+
+        ligne(b, &avant, &current);
+
+        avant = current;
+        x++;
+    }
 }

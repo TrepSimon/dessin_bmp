@@ -6,6 +6,12 @@
 #include "Position.h"
 
 #define ratio(ligne) ((float)(ligne - p1->y)) / delta_y
+enum DistortionType {
+    SOFT,
+    HARD,
+    WAVE_SHAPING,
+    OVERDRIVE,
+};
 
 class Draw{
     void swap_position(Position*&, Position*&);
@@ -24,5 +30,6 @@ public:
     void triangle_equilateral(bmp*, Position*, Position*, bool, bool = false);
     void fill(bmp*, int, int);
 
+    void distortedSinus(bmp*, DistortionType,int, int, int);
 };
 
