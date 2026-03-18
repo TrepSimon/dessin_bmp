@@ -220,6 +220,10 @@ static void onResize(HWND parent, int width, int height) {
     SetWindowPos(console, NULL, editWindowX, paddingY, width - currentWidthBmp - paddingY, consoleHeight, SWP_NOZORDER);
 }
 
+static void onKeyDown(HWND parent, WPARAM wParam) {
+    
+}
+
 
 int main(){
     w = 500;
@@ -237,6 +241,7 @@ int main(){
     window->addPaintFunction(paintMethode);
     window->addCreateFunction(createMethode);
     window->addResizeMethod(onResize);
+    window->addKeyDownMethod(onKeyDown);
     window->addCommandMethod(onCommand);
 
     *window->getRunning() = window->create_window(1000, 500, "fkf");
