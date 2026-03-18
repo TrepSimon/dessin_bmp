@@ -8,6 +8,9 @@
 #include "Fenetre.h"
 
 #define paddingY 10
+#define C_editHeight 30
+#define C_baseWidth 500
+
 #define P1_position param1->position
 #define P2_position param2->position
 #define P_bool parametre->at(3)->parametreBool
@@ -22,9 +25,10 @@
 
 using namespace app;
 
-HWND edit, bitmap;
+HWND edit, bitmap, console;
 HBITMAP hMap;
 int w, h;
+int consoleHeight;
 
 void dessiner_tout_help() {
     help_2_position("ligne");
@@ -170,6 +174,7 @@ static void paintMethode(HDC fhdc) {
 }
 
 static HWND createMethode(HWND parent, int bitmapWidth) {
+    consoleHeight = 300;
     int padding = 20;
     hMap = (HBITMAP)::LoadImage(
         NULL,
@@ -179,22 +184,40 @@ static HWND createMethode(HWND parent, int bitmapWidth) {
         LR_LOADFROMFILE | LR_CREATEDIBSECTION
     );
 
-    edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL, bitmapWidth + padding, 10, 500, 300, parent, (HMENU)1, NULL, NULL);
+    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOHSCROLL | WS_HSCROLL, bitmapWidth + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
 
-    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, 10, 500, 300, parent, NULL, NULL, NULL);
+    edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, bitmapWidth + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
+
+    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, paddingY, C_baseWidth, 300, parent, NULL, NULL, NULL);
 
     return edit;
+}
+
+static void onCommand(HWND window) {
+    PAINTSTRUCT ps;
+    HDC hdc = BeginPaint(console, &ps);
+
+    auto text = L"test";
+
+    TextOut(hdc, 0, 0, text, lstrlenW(text));
+
+    EndPaint(console, &ps);
+    DeleteDC(hdc);
 }
 
 static void onResize(HWND parent, int width, int height) {
     int maxWidth = width / 2;
     int currentWidthBmp = (maxWidth > w) ? w : maxWidth;
     int currentHeightBmp = height <= h ? height : h;
+    consoleHeight = paddingY + height - paddingY * 2 - C_editHeight;
 
-    int editWidowX = currentWidthBmp;
+    int editWindowX = currentWidthBmp;
 
     SetWindowPos(bitmap, NULL, 0, paddingY, currentWidthBmp, currentHeightBmp - paddingY * 2, SWP_NOMOVE | SWP_NOZORDER);
-    SetWindowPos(edit, NULL, editWidowX, paddingY, width - currentWidthBmp - paddingY, height - paddingY * 2,  SWP_NOZORDER);
+
+    SetWindowPos(edit, NULL, editWindowX, consoleHeight, width - currentWidthBmp - paddingY, C_editHeight,  SWP_NOZORDER);
+
+    SetWindowPos(console, NULL, editWindowX, paddingY, width - currentWidthBmp - paddingY, consoleHeight, SWP_NOZORDER);
 }
 
 
@@ -214,6 +237,8 @@ int main(){
     window->addPaintFunction(paintMethode);
     window->addCreateFunction(createMethode);
     window->addResizeMethod(onResize);
+    window->addCommandMethod(onCommand);
+
     *window->getRunning() = window->create_window(1000, 500, "fkf");
 
     while (*window->getRunning()) {
