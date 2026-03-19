@@ -29,6 +29,7 @@ HWND edit, bitmap, console;
 HBITMAP hMap;
 int w, h;
 int consoleHeight;
+bool *isRunning;
 
 void dessiner_tout_help() {
     help_2_position("ligne");
@@ -173,7 +174,7 @@ static void paintMethode(HDC fhdc) {
     DeleteDC(hdcCopy);
 }
 
-static HWND createMethode(HWND parent, int bitmapWidth) {
+static HWND createMethode(HWND parent) {
     consoleHeight = 300;
     int padding = 20;
     hMap = (HBITMAP)::LoadImage(
@@ -184,9 +185,9 @@ static HWND createMethode(HWND parent, int bitmapWidth) {
         LR_LOADFROMFILE | LR_CREATEDIBSECTION
     );
 
-    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOHSCROLL | WS_HSCROLL, bitmapWidth + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
+    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOHSCROLL | WS_HSCROLL, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
 
-    edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, bitmapWidth + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
+    edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, w + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
 
     bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, paddingY, C_baseWidth, 300, parent, NULL, NULL, NULL);
 
@@ -220,8 +221,48 @@ static void onResize(HWND parent, int width, int height) {
     SetWindowPos(console, NULL, editWindowX, paddingY, width - currentWidthBmp - paddingY, consoleHeight, SWP_NOZORDER);
 }
 
-static void onKeyDown(HWND parent, WPARAM wParam) {
-    
+static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
+    LRESULT result = 0;
+
+    switch (msg) {
+        case WM_CLOSE:
+            *isRunning = false;
+            CloseWindow(window);
+            break;
+        case WM_PAINT:{
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(window, &ps);
+
+            FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
+            paintMethode(hdc);
+
+            EndPaint(window, &ps);
+            DeleteDC(hdc);
+            break;
+        }
+        case WM_COMMAND: {
+
+            onCommand(window);
+
+            break;
+        }
+        case WM_CREATE: {
+            edit = createMethode(window);
+            break;
+        }
+        case WM_SIZE: {
+            auto width = LOWORD(lParam);
+            auto height = HIWORD(lParam);
+
+            onResize(window, width, height);
+            break;
+        }
+        default:
+            result = DefWindowProcA(window, msg, wParam, lParam);
+        }
+
+    return result;
 }
 
 
@@ -236,15 +277,11 @@ int main(){
 
     b->saveFile();
 
-    window->bitmapWidth = &w;
-
-    window->addPaintFunction(paintMethode);
-    window->addCreateFunction(createMethode);
-    window->addResizeMethod(onResize);
-    window->addKeyDownMethod(onKeyDown);
-    window->addCommandMethod(onCommand);
+    window->addWindowProc(windowProc);
 
     *window->getRunning() = window->create_window(1000, 500, "fkf");
+
+    isRunning = window->getRunning();
 
     while (*window->getRunning()) {
         window->update_window();
