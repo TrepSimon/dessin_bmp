@@ -160,6 +160,14 @@ void dessiner(bmp* b, Draw* draw, std::vector<Data*>* parametre) {
 }
 
 static void paintMethode(HDC fhdc) {
+    hMap = (HBITMAP)::LoadImage(
+        NULL,
+        L"C:\\temp\\a.bmp",
+        IMAGE_BITMAP,
+        0, 0,
+        LR_LOADFROMFILE | LR_CREATEDIBSECTION
+    );
+
     PAINTSTRUCT ps;
     HDC hdc = BeginPaint(bitmap, &ps);
 
@@ -177,33 +185,19 @@ static void paintMethode(HDC fhdc) {
 static HWND createMethode(HWND parent) {
     consoleHeight = 300;
     int padding = 20;
-    hMap = (HBITMAP)::LoadImage(
-        NULL,
-        L"C:\\temp\\a.bmp",
-        IMAGE_BITMAP,
-        0, 0,
-        LR_LOADFROMFILE | LR_CREATEDIBSECTION
-    );
+    
 
     console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOHSCROLL | WS_HSCROLL, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
 
     edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, w + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
 
-    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, paddingY, C_baseWidth, 300, parent, NULL, NULL, NULL);
+    bitmap = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_BORDER | SS_BITMAP | WS_VISIBLE | WS_CLIPCHILDREN, 0, paddingY, C_baseWidth, C_baseWidth, parent, NULL, NULL, NULL);
 
     return edit;
 }
 
 static void onCommand(HWND window) {
-    PAINTSTRUCT ps;
-    HDC hdc = BeginPaint(console, &ps);
-
-    auto text = L"test";
-
-    TextOut(hdc, 0, 0, text, lstrlenW(text));
-
-    EndPaint(console, &ps);
-    DeleteDC(hdc);
+    
 }
 
 static void onResize(HWND parent, int width, int height) {
@@ -241,15 +235,25 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
             DeleteDC(hdc);
             break;
         }
-        case WM_COMMAND: {
+        case WM_CHAR: {
+            /*PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(console, &ps);
 
-            onCommand(window);
+            LPCWSTR text = L"ttest";
 
-            break;
+            TextOut(hdc, 0, 0, text, lstrlenW(text));
+
+            EndPaint(console, &ps);
+            DeleteDC(hdc);*/
+
+            std::cout << (char)wParam << std::endl;
         }
         case WM_CREATE: {
             edit = createMethode(window);
             break;
+        }
+        case WM_SETFOCUS: {
+            SetFocus(edit);
         }
         case WM_SIZE: {
             auto width = LOWORD(lParam);
