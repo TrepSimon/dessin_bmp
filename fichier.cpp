@@ -11,6 +11,9 @@
 #define C_editHeight 30
 #define C_baseWidth 500
 
+#define newLine 13
+#define empty 0
+
 #define P1_position param1->position
 #define P2_position param2->position
 #define P_bool parametre->at(3)->parametreBool
@@ -30,6 +33,10 @@ HBITMAP hMap;
 int w, h;
 int consoleHeight;
 bool *isRunning;
+
+int currentRow;
+TCHAR currentExpression[64];
+int expressionPosition;
 
 void dessiner_tout_help() {
     help_2_position("ligne");
@@ -187,7 +194,7 @@ static HWND createMethode(HWND parent) {
     int padding = 20;
     
 
-    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOHSCROLL | WS_HSCROLL, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
+    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL | WS_VSCROLL, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
 
     edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, w + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
 
@@ -198,6 +205,32 @@ static HWND createMethode(HWND parent) {
 
 static void onCommand(HWND window) {
     
+}
+
+TCHAR* findCommand() {
+    int size = expressionPosition;
+    TCHAR* returnText = (TCHAR*)malloc(size);
+
+    if (returnText == NULL)return NULL;
+
+    for (int idx = 0; idx < size; idx++) {
+        *returnText += currentExpression[idx];
+        std::cout << (char)currentExpression[idx];
+    }
+    std::cout << std::endl;
+    return returnText;
+}
+
+void printExpression(TCHAR *expression) {
+    //PAINTSTRUCT ps;
+    //HDC hdc = BeginPaint(console, &ps);
+
+    ////TCHAR text[] = expression;
+
+    ////TextOut(hdc, 10, 10, text, _tcslen(text));
+
+    //EndPaint(console, &ps);
+    //DeleteDC(hdc);
 }
 
 static void onResize(HWND parent, int width, int height) {
@@ -236,17 +269,35 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
         }
         case WM_CHAR: {
-            /*PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(console, &ps);
 
-            LPCWSTR text = L"ttest";
+            if (wParam == newLine) {
+                TCHAR* command = findCommand();
 
-            TextOut(hdc, 0, 0, text, lstrlenW(text));
+                if (command == NULL) {
+                    std::cout << "commande non trouver" << std::endl;
+                    return 1;
+                }
+                printExpression(command);
 
-            EndPaint(console, &ps);
-            DeleteDC(hdc);*/
+                currentRow++;
+                expressionPosition = 0;
+                SetWindowText(edit, L"");
 
-            std::cout << (char)wParam << std::endl;
+                //imprimer la bitmap;
+
+                //free(command);
+                delete command;
+            }
+            else if(wParam != empty){
+                
+                currentExpression[expressionPosition] = (TCHAR)wParam;
+                expressionPosition++;
+
+                std::cout << currentExpression[expressionPosition - 1] << std::endl;     
+            }
+
+            //std::cout << (char)wParam << std::endl;
+            break;
         }
         case WM_CREATE: {
             edit = createMethode(window);
@@ -278,6 +329,9 @@ int main(){
     Draw* draw = new Draw();
     auto *parametre = new std::vector<Data*>();
     Fenetre* window = new Fenetre();
+
+    currentRow = 0;
+    expressionPosition = 0;
 
     b->saveFile();
 
@@ -323,6 +377,7 @@ int main(){
 
     system("start c:\\temp\\a.bmp");
 
+    delete(currentExpression);
 	delete b;
     delete parser;
     delete draw;
