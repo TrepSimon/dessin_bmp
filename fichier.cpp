@@ -35,6 +35,7 @@ int consoleHeight;
 bool *isRunning;
 
 int currentRow;
+int charHeight;
 TCHAR currentExpression[64];
 int expressionPosition;
 
@@ -194,7 +195,7 @@ static HWND createMethode(HWND parent) {
     int padding = 20;
     
 
-    console = CreateWindowEx(0, L"STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL | WS_VSCROLL, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
+    console = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL | WS_VSCROLL | ES_READONLY, w + padding, paddingY, C_baseWidth, consoleHeight, parent, (HMENU)1, NULL, NULL);
 
     edit = CreateWindowEx(0, L"EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, w + padding, consoleHeight + paddingY, C_baseWidth, C_editHeight, parent, (HMENU)1, NULL, NULL);
 
@@ -207,30 +208,31 @@ static void onCommand(HWND window) {
     
 }
 
-TCHAR* findCommand() {
+char* findCommand() {
     int size = expressionPosition;
-    TCHAR* returnText = (TCHAR*)malloc(size);
-
-    if (returnText == NULL)return NULL;
+    char returnText[64];
 
     for (int idx = 0; idx < size; idx++) {
-        *returnText += currentExpression[idx];
-        std::cout << (char)currentExpression[idx];
+        returnText[idx] = currentExpression[idx];
     }
     std::cout << std::endl;
     return returnText;
 }
 
-void printExpression(TCHAR *expression) {
-    //PAINTSTRUCT ps;
-    //HDC hdc = BeginPaint(console, &ps);
+void printExpression(char expression[]) {
+    PAINTSTRUCT ps;
+    TEXTMETRIC tm;
 
-    ////TCHAR text[] = expression;
+    HDC hdc = BeginPaint(console, &ps);
 
-    ////TextOut(hdc, 10, 10, text, _tcslen(text));
+    GetTextMetrics(hdc, &tm);
+    charHeight = tm.tmHeight;
 
-    //EndPaint(console, &ps);
-    //DeleteDC(hdc);
+    TextOut(hdc, 5, currentRow * charHeight, currentExpression, expressionPosition);
+
+    EndPaint(console, &ps);
+    DeleteDC(hdc);
+    
 }
 
 static void onResize(HWND parent, int width, int height) {
@@ -271,7 +273,7 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
         case WM_CHAR: {
 
             if (wParam == newLine) {
-                TCHAR* command = findCommand();
+                char *command = findCommand();
 
                 if (command == NULL) {
                     std::cout << "commande non trouver" << std::endl;
@@ -285,15 +287,11 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
 
                 //imprimer la bitmap;
 
-                //free(command);
-                delete command;
             }
             else if(wParam != empty){
                 
                 currentExpression[expressionPosition] = (TCHAR)wParam;
-                expressionPosition++;
-
-                std::cout << currentExpression[expressionPosition - 1] << std::endl;     
+                expressionPosition++;     
             }
 
             //std::cout << (char)wParam << std::endl;
