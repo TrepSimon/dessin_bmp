@@ -1,6 +1,11 @@
 ﻿  fichier.cpp
-C:\Users\Simon\source\repos\fichier\fichier.cpp(216,48): warning C4244: '=' : conversion de 'TCHAR' en 'char', perte possible de données
-C:\Users\Simon\source\repos\fichier\fichier.cpp(378,5): warning C4156: suppression d'une expression de tableau sans utiliser la forme 'delete' de tableau ; substituée par la forme de tableau
-C:\Users\Simon\source\repos\fichier\fichier.cpp(378,5): warning C4154: suppression d'une expression de tableau ; conversion en pointeur fournie
-C:\Users\Simon\source\repos\fichier\fichier.cpp(219,1): warning C4172: retour de l’adresse de la variable locale ou temporaire : returnText
+C:\Users\Simon\source\repos\fichier\fichier.cpp(222,48): warning C4244: '=' : conversion de 'TCHAR' en 'char', perte possible de données
+C:\Users\Simon\source\repos\fichier\fichier.cpp(262,32): warning C4244: 'argument' : conversion de 'TCHAR' en '_Elem', perte possible de données
+C:\Users\Simon\source\repos\fichier\fichier.cpp(262,32): warning C4244:         with
+C:\Users\Simon\source\repos\fichier\fichier.cpp(262,32): warning C4244:         [
+C:\Users\Simon\source\repos\fichier\fichier.cpp(262,32): warning C4244:             _Elem=char
+C:\Users\Simon\source\repos\fichier\fichier.cpp(262,32): warning C4244:         ]
+C:\Users\Simon\source\repos\fichier\fichier.cpp(410,5): warning C4156: suppression d'une expression de tableau sans utiliser la forme 'delete' de tableau ; substituée par la forme de tableau
+C:\Users\Simon\source\repos\fichier\fichier.cpp(410,5): warning C4154: suppression d'une expression de tableau ; conversion en pointeur fournie
+C:\Users\Simon\source\repos\fichier\fichier.cpp(225,1): warning C4172: retour de l’adresse de la variable locale ou temporaire : returnText
   fichier.vcxproj -> C:\Users\Simon\source\repos\fichier\x64\Debug\fichier.exe

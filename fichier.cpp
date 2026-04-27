@@ -39,6 +39,12 @@ int charHeight;
 TCHAR currentExpression[64];
 int expressionPosition;
 
+Parser *parser;
+std::vector<Data*>* parametre;
+Draw* draw;
+bmp* b;
+
+
 void dessiner_tout_help() {
     help_2_position("ligne");
     new_line;
@@ -219,8 +225,8 @@ char* findCommand() {
     return returnText;
 }
 
-void printExpression(char expression[]) {
-    PAINTSTRUCT ps;
+void printExpression(char *expression) {
+    /*PAINTSTRUCT ps;
     TEXTMETRIC tm;
 
     HDC hdc = BeginPaint(console, &ps);
@@ -231,8 +237,8 @@ void printExpression(char expression[]) {
     TextOut(hdc, 5, currentRow * charHeight, currentExpression, expressionPosition);
 
     EndPaint(console, &ps);
-    DeleteDC(hdc);
-    
+    DeleteDC(hdc);*/
+    SetWindowText(console, currentExpression);
 }
 
 static void onResize(HWND parent, int width, int height) {
@@ -248,6 +254,14 @@ static void onResize(HWND parent, int width, int height) {
     SetWindowPos(edit, NULL, editWindowX, consoleHeight, width - currentWidthBmp - paddingY, C_editHeight,  SWP_NOZORDER);
 
     SetWindowPos(console, NULL, editWindowX, paddingY, width - currentWidthBmp - paddingY, consoleHeight, SWP_NOZORDER);
+}
+
+std::string charToStr(TCHAR *text, int size) {
+    std::string returnValue;
+    for (int idx = 0; idx < size; idx++) {
+        returnValue += text[idx];
+    }
+    return returnValue;
 }
 
 static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -274,19 +288,37 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
 
             if (wParam == newLine) {
                 char *command = findCommand();
-
                 if (command == NULL) {
-                    std::cout << "commande non trouver" << std::endl;
+                    SetWindowText(console, L"commande non trouver\n");
                     return 1;
                 }
+
+                std::string str = charToStr(currentExpression, expressionPosition);
+
+                parser->changeExpression(str);
+
+                for (auto data : *parametre) {
+                    if (data->option != NULL)delete data->option;
+                    delete data;
+                }
+                parametre->clear();
+
+                if (!parser->Valide(parametre)) {
+                    SetWindowText(console, L"erreur de parsing\ncommande annule\n");
+                    SetWindowText(edit, L"");
+                    return 1;
+                }
+
                 printExpression(command);
+
+                dessiner(b, draw, parametre);
 
                 currentRow++;
                 expressionPosition = 0;
                 SetWindowText(edit, L"");
 
                 //imprimer la bitmap;
-
+                SendMessageW(bitmap, WM_PAINT, 0, 0);
             }
             else if(wParam != empty){
                 
@@ -322,10 +354,10 @@ static LRESULT windowProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam) {
 int main(){
     w = 500;
     h = 500;
-	bmp* b = new bmp(w, h);
-    Parser* parser = new Parser();
-    Draw* draw = new Draw();
-    auto *parametre = new std::vector<Data*>();
+	b = new bmp(w, h);
+    parser = new Parser();
+    draw = new Draw();
+    parametre = new std::vector<Data*>();
     Fenetre* window = new Fenetre();
 
     currentRow = 0;
